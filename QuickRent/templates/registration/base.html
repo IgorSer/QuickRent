@@ -1,0 +1,55 @@
+{% load static %}
+<html>
+    <head>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/css.css' %}" >
+    </head>
+    <body style="background-color:#bdbfc1;">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">QuickRent</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a class="pointer-events:none;cursor:default;"></a></li>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'post-item' %}">Rent an item</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}?next=/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> {{user.get_username}}</a></li>
+                    {% else %}
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h1>QuickRent</h1>
+                    <form action="{% url 'price-view' %}" method="get">
+                        <br />
+                        <label for="pricefrom">Price min</label>
+                        <input type="text" name="pricefrom"><br>
+                        <label for="priceto">Price max</label>
+                        <input type="text" name="priceto"><br>
+                        <input type="submit" value="Submit">
+                    </form>
+                    <br />
+                </div>
+                <div class="col-sm-9">
+                    <h2>Find Apartment, House, Car or any other type of item you would wish to rent.</h2>
+                    {% block content %}
+                    {% endblock %}
+                </div
+            </div>
+        </div>
+    </body>
+</html>

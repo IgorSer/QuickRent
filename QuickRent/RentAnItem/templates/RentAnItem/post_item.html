@@ -1,0 +1,15 @@
+{% extends 'RentAnItem/base.html' %}
+{% block content %}
+This is a item post page
+<h1>Post an Item here</h1>
+<form action="" method="post">
+        {% csrf_token %}
+        <label>title</label>{{form.title}}<br />
+        <label>Price</label>{{form.price}}<br />
+        <h4>Description</h4>{{form.description}}<br />
+        <label>Upload Image</label>{{form.image}}
+              <br />
+              <input type="submit">
+        <br />
+</form>
+{% endblock %}
